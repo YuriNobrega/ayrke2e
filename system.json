@@ -1,0 +1,43 @@
+{
+  "id": "ayrke2e",
+  "version": "0.8.2",
+  "title": "Ayrke 2e",
+  "url": "",
+  "description": "SERÁ QUE O YURI VAI CONSEGUIR FAZER ISSO? based entirely on the Simple Worldbuilding System for Foundry designed by Atropos.",
+  "license": "LICENSE.txt",
+  "authors": [
+    {
+      "name": "ayrke2e",
+      "url": ""
+    }
+  ],
+  "esmodules": [
+    "module/simple.js"
+  ],
+  "styles": [
+    "styles/simple.css"
+  ],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "lang/pl.json"
+    }
+  ],
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  },
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "power",
+  "manifest": "",
+  "download": ""
+}
