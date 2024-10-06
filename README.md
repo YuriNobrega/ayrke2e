@@ -1,3 +1,15 @@
-# Simple Worldbuilding System
+Ayrke2e
 
-A simple game system for Foundry VTT which allows for flexible definition of Actors and Items to assist with worldbuilding or for running games which do not have a more complete system implementation available.
+Sistema de RPG baseado em D&D 2ª edição que tô fazendo pro meu amigo Ayrke
+
+
+
+
+
+
+
+
+
+
+
+manda um salve pra galera do cachurros
