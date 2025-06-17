@@ -1,0 +1,289 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+
+      <div class="resources grid grid-3col">
+
+        {{!-- "flex-group-center" is also defined in the _grid.scss file
+        and it will add a small amount of padding, a border, and will
+        center all of its child elements content and text. --}}
+        <div class="resource flex-group-center">
+          <label for="system.race.value" class="resource-label">Race</label>
+          <div class="resource-content flexrow flex-center">
+          <select name="system.race.value" data-dtype="Text">
+            <option value="" selected disabled>Select Race</option>
+            {{#each config.races as |race|}}
+            <option value="{{race}}" {{selected system.race.value race}}>{{race}}</option>
+            {{/each}}
+          </select>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.class.value" class="resource-label">Class/Kit</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.class.value" value="{{system.class.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.background.value" class="resource-label">Alignment</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.background.value" value="{{system.background.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.attributes.level.value" class="resource-label">Level</label>
+          <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="system.attributes.level.value" value="{{system.attributes.level.value}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.placeOfOrigin.value" class="resource-label">Place of Origin</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.placeOfOrigin.value" value="{{system.placeOfOrigin.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.patronDeity.value" class="resource-label">Patron Deity/Religion</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.patronDeity.value" value="{{system.patronDeity.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.placeOfOrigin.value" class="resource-label">Place of Origin</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.placeOfOrigin.value" value="{{system.placeOfOrigin.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.patronDeity.value" class="resource-label">Patron Deity/Religion</label>
+          <div class="resource-content flexrow flex-center">
+          <input type="text" name="system.patronDeity.value" value="{{system.patronDeity.value}}" data-dtype="Text"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="features">Features</a>
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="items">Equipment</a>
+    <a class="item" data-tab="spells">Spells</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Owned Features Tab --}}
+    <div class="tab features" data-group="primary" data-tab="features">
+      <section class="grid grid-3col">
+        <aside class="sidebar">
+          <h2>Abilities</h2>
+          <div class="abilities flexcol">
+            
+            {{#each system.abilities as |ability key|}}
+            <div class="ability flexrow flex-group-center">
+              <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}">{{localize (lookup @root.config.abilities key)}}</label>
+              <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+              <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </aside>
+
+        <div class="features-section">
+          <h2>Character Features</h2>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.hitAdjustment.value" class="resource-label">Hit Adjustment</label>
+          <input type="text" name="system.hitAdjustment.value" value="{{system.hitAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.damageAdjustment.value" class="resource-label">Damage Adjustment</label>
+          <input type="text" name="system.damageAdjustment.value" value="{{system.damageAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.weightAllow.value" class="resource-label">Weight Allowance</label>
+          <input type="text" name="system.weightAllow.value" value="{{system.weightAllow.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.maxPress.value" class="resource-label">Max Press</label>
+          <input type="text" name="system.maxPress.value" value="{{system.maxPress.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.openDoors.value" class="resource-label">Open Doors</label>
+          <input type="text" name="system.openDoors.value" value="{{system.openDoors.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.bendBars.value" class="resource-label">Bend Bars</label>
+          <input type="text" name="system.bendBars.value" value="{{system.bendBars.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.surpriseAdjustment.value" class="resource-label">Surprise Adjustment</label>
+          <input type="text" name="system.surpriseAdjustment.value" value="{{system.surpriseAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.missileArtAdjustment.value" class="resource-label">Missile Art Adjustment</label>
+          <input type="text" name="system.missileArtAdjustment.value" value="{{system.missileArtAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.defensiveAdjustment.value" class="resource-label">Defensive Adjustment</label>
+          <input type="text" name="system.defensiveAdjustment.value" value="{{system.defensiveAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.hpAdjustment.value" class="resource-label">HP Adjustment</label>
+          <input type="text" name="system.hpAdjustment.value" value="{{system.hpAdjustment.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.systemShock.value" class="resource-label">System Shock</label>
+          <input type="text" name="system.systemShock.value" value="{{system.systemShock.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.resurrectSurvival.value" class="resource-label">Resurrect Survival</label>
+          <input type="text" name="system.resurrectSurvival.value" value="{{system.resurrectSurvival.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.poisonSave.value" class="resource-label">Poison Save</label>
+          <input type="text" name="system.poisonSave.value" value="{{system.poisonSave.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.regen.value" class="resource-label">Regeneration</label>
+          <input type="text" name="system.regen.value" value="{{system.regen.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.addProfs.value" class="resource-label">Add Proficiencies</label>
+          <input type="text" name="system.addProfs.value" value="{{system.addProfs.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.spellLevel.value" class="resource-label">Spell Level</label>
+          <input type="text" name="system.spellLevel.value" value="{{system.spellLevel.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.learnSpell.value" class="resource-label">Learn Spell</label>
+          <input type="text" name="system.learnSpell.value" value="{{system.learnSpell.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.maxSpells.value" class="resource-label">Max Number of Spells</label>
+          <input type="text" name="system.maxSpells.value" value="{{system.maxSpells.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.spellImmunity.value" class="resource-label">Spell Immunity</label>
+          <input type="text" name="system.spellImmunity.value" value="{{system.spellImmunity.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.maxHenchmen.value" class="resource-label">Max Number of Henchmen</label>
+          <input type="text" name="system.maxHenchmen.value" value="{{system.maxHenchmen.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.loyaltyBase.value" class="resource-label">Loyalty Base</label>
+          <input type="text" name="system.loyaltyBase.value" value="{{system.loyaltyBase.value}}" data-dtype="Number"/>
+          </div>
+          <div class="feature flexrow flex-group-center">
+          <label for="system.reactionAdjustment.value" class="resource-label">Reaction Adjustment</label>
+          <input type="text" name="system.reactionAdjustment.value" value="{{system.reactionAdjustment.value}}" data-dtype="Number"/>
+          </div>
+
+            </div>
+
+        <aside class="sidebar">
+          <div class="saving-throws flexcol">
+            <h2>Saving Throws</h2>
+            <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.paralyzation.value" class="resource-label">Paralyzation/Poison/Death</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.paralyzation.start" value="{{system.savingThrows.paralyzation.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.paralyzation.mod" value="{{system.savingThrows.paralyzation.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.paralyzation.total" value="{{system.savingThrows.paralyzation.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.paralyzation.sign" value="{{system.savingThrows.paralyzation.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.paralyzation.modifier" value="{{system.savingThrows.paralyzation.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+          <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.rod.value" class="resource-label">Rod, Staff or Wand</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.rod.start" value="{{system.savingThrows.rod.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.rod.mod" value="{{system.savingThrows.rod.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.rod.total" value="{{system.savingThrows.rod.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.rod.sign" value="{{system.savingThrows.rod.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.rod.modifier" value="{{system.savingThrows.rod.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+          <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.petrification.value" class="resource-label">Petrification/Polymorph</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.petrification.start" value="{{system.savingThrows.petrification.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.petrification.mod" value="{{system.savingThrows.petrification.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.petrification.total" value="{{system.savingThrows.petrification.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.petrification.sign" value="{{system.savingThrows.petrification.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.petrification.modifier" value="{{system.savingThrows.petrification.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+          <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.breathWeapon.value" class="resource-label">Breath Weapon</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.breathWeapon.start" value="{{system.savingThrows.breathWeapon.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.breathWeapon.mod" value="{{system.savingThrows.breathWeapon.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.breathWeapon.total" value="{{system.savingThrows.breathWeapon.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.breathWeapon.sign" value="{{system.savingThrows.breathWeapon.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.breathWeapon.modifier" value="{{system.savingThrows.breathWeapon.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+          <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.spell.value" class="resource-label">Spell</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.spell.start" value="{{system.savingThrows.spell.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.spell.mod" value="{{system.savingThrows.spell.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.spell.total" value="{{system.savingThrows.spell.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.spell.sign" value="{{system.savingThrows.spell.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.spell.modifier" value="{{system.savingThrows.spell.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+          <div class="saving-throw flexrow flex-group-center">
+          <label for="system.savingThrows.spellResistance.value" class="resource-label">Spell Resistance</label>
+          <div class="saving-throw-values flexrow">
+          <input type="text" name="system.savingThrows.spellResistance.start" value="{{system.savingThrows.spellResistance.start}}" data-dtype="Number" placeholder="Start"/>
+          <input type="text" name="system.savingThrows.spellResistance.mod" value="{{system.savingThrows.spellResistance.mod}}" data-dtype="Number" placeholder="Mod"/>
+          <input type="text" name="system.savingThrows.spellResistance.total" value="{{system.savingThrows.spellResistance.total}}" data-dtype="Number" placeholder="Total"/>
+          <input type="text" name="system.savingThrows.spellResistance.sign" value="{{system.savingThrows.spellResistance.sign}}" data-dtype="Text" placeholder="+/-"/>
+          <input type="text" name="system.savingThrows.spellResistance.modifier" value="{{system.savingThrows.spellResistance.modifier}}" data-dtype="Number" placeholder="Modifier"/>
+          </div>
+          </div>
+        </aside>
+      </section>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      {{!-- Editors must receive enriched text data from getData to properly handle rolls --}}
+      {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+    </div>
+
+    {{!-- Owned Equipment Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+       {{> "systems/ayrke2e/templates/actor/parts/actor-items.hbs"}}
+    </div>
+
+    {{!-- Owned Spells Tab --}}
+    <div class="tab spells" data-group="primary" data-tab="spells">
+      {{> "systems/ayrke2e/templates/actor/parts/actor-spells.hbs"}}
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/ayrke2e/templates/actor/parts/actor-effects.hbs"}}
+    </div>
+
+  </section>
+</form>
