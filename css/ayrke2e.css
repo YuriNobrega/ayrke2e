@@ -364,3 +364,17 @@
 .ayrke2e .effects .item .effect-controls {
   border: none;
 }
+
+
+.ayrke2e .input-shield {
+  width: 120px;
+  height: 140px;
+  border: none;
+  background: url('../assets/shield-svgrepo-com.svg') no-repeat center/contain;
+  font-size: 20px;
+  text-align: center;
+  padding: 60px 20px 40px 20px; /* Ajuste para o texto ficar centralizado dentro do escudo */
+  background-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+}
