@@ -90,115 +90,64 @@
   <section class="sheet-body">
     {{!-- Owned Features Tab --}}
     <div class="tab features" data-group="primary" data-tab="features">
-      <section class="grid grid-3col">
-        <aside class="sidebar">
-          <h2>Abilities</h2>
+      <section class="grid grid-2col">
+          
           <div class="abilities flexcol">
-            
+            <h2>Abilities</h2>
+            <!-- Loop que contém as habilidades do sistema -->
             {{#each system.abilities as |ability key|}}
-            <div class="ability flexrow flex-group-center">
+            <div class="ability flexcol flex-group-center"> 
               <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}">{{localize (lookup @root.config.abilities key)}}</label>
               <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-              <span class="ability-mod rollable" data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-            </div>
-            {{/each}}
-          </div>
-        </aside>
 
-        <div class="features-section">
-          <h2>Character Features</h2>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.hitAdjustment.value" class="resource-label">Hit Adjustment</label>
-          <input type="text" name="system.hitAdjustment.value" value="{{system.hitAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.damageAdjustment.value" class="resource-label">Damage Adjustment</label>
-          <input type="text" name="system.damageAdjustment.value" value="{{system.damageAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.weightAllow.value" class="resource-label">Weight Allowance</label>
-          <input type="text" name="system.weightAllow.value" value="{{system.weightAllow.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.maxPress.value" class="resource-label">Max Press</label>
-          <input type="text" name="system.maxPress.value" value="{{system.maxPress.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.openDoors.value" class="resource-label">Open Doors</label>
-          <input type="text" name="system.openDoors.value" value="{{system.openDoors.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.bendBars.value" class="resource-label">Bend Bars</label>
-          <input type="text" name="system.bendBars.value" value="{{system.bendBars.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.surpriseAdjustment.value" class="resource-label">Surprise Adjustment</label>
-          <input type="text" name="system.surpriseAdjustment.value" value="{{system.surpriseAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.missileArtAdjustment.value" class="resource-label">Missile Art Adjustment</label>
-          <input type="text" name="system.missileArtAdjustment.value" value="{{system.missileArtAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.defensiveAdjustment.value" class="resource-label">Defensive Adjustment</label>
-          <input type="text" name="system.defensiveAdjustment.value" value="{{system.defensiveAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.hpAdjustment.value" class="resource-label">HP Adjustment</label>
-          <input type="text" name="system.hpAdjustment.value" value="{{system.hpAdjustment.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.systemShock.value" class="resource-label">System Shock</label>
-          <input type="text" name="system.systemShock.value" value="{{system.systemShock.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.resurrectSurvival.value" class="resource-label">Resurrect Survival</label>
-          <input type="text" name="system.resurrectSurvival.value" value="{{system.resurrectSurvival.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.poisonSave.value" class="resource-label">Poison Save</label>
-          <input type="text" name="system.poisonSave.value" value="{{system.poisonSave.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.regen.value" class="resource-label">Regeneration</label>
-          <input type="text" name="system.regen.value" value="{{system.regen.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.addProfs.value" class="resource-label">Add Proficiencies</label>
-          <input type="text" name="system.addProfs.value" value="{{system.addProfs.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.spellLevel.value" class="resource-label">Spell Level</label>
-          <input type="text" name="system.spellLevel.value" value="{{system.spellLevel.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.learnSpell.value" class="resource-label">Learn Spell</label>
-          <input type="text" name="system.learnSpell.value" value="{{system.learnSpell.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.maxSpells.value" class="resource-label">Max Number of Spells</label>
-          <input type="text" name="system.maxSpells.value" value="{{system.maxSpells.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.spellImmunity.value" class="resource-label">Spell Immunity</label>
-          <input type="text" name="system.spellImmunity.value" value="{{system.spellImmunity.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.maxHenchmen.value" class="resource-label">Max Number of Henchmen</label>
-          <input type="text" name="system.maxHenchmen.value" value="{{system.maxHenchmen.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.loyaltyBase.value" class="resource-label">Loyalty Base</label>
-          <input type="text" name="system.loyaltyBase.value" value="{{system.loyaltyBase.value}}" data-dtype="Number"/>
-          </div>
-          <div class="feature flexrow flex-group-center">
-          <label for="system.reactionAdjustment.value" class="resource-label">Reaction Adjustment</label>
-          <input type="text" name="system.reactionAdjustment.value" value="{{system.reactionAdjustment.value}}" data-dtype="Number"/>
-          </div>
+              <!-- Loop que agrupa as features as respectivas habilidades -->
+              {{#if (eq key "str")}}
+              <!-- Feature: Hit Adjustment -->
+              <div class="feature flexrow flex-group-center">
+              <div class="feature flexcol flex-group-center">
+                <label for="system.hitAdjustment.value" class="resource-label">Hit Adj.</label>
+                <input type="text" name="system.hitAdjustment.value" value="{{system.hitAdjustment.value}}" data-dtype="Number"/>
+              </div>
+
+              <!-- Feature: Damage Adjustment -->
+              <div class="feature flexcol flex-group-center">
+                <label for="system.damageAdjustment.value" class="resource-label">Damage Adj.</label>
+                <input type="text" name="system.damageAdjustment.value" value="{{system.damageAdjustment.value}}" data-dtype="Number"/>
+              </div>
+          <!-- Feature: Weight Allowance -->
+          
+      <div class="feature flexcol flex-group-center">
+        <label for="system.weightAllow.value" class="resource-label">Weight Allow</label>
+        <input type="text" name="system.weightAllow.value" value="{{system.weightAllow.value}}" data-dtype="Number"/>
+      </div>
+
+      <!-- Feature: Max Press -->
+      <div class="feature flexcol flex-group-center">
+        <label for="system.maxPress.value" class="resource-label">Max Press</label>
+        <input type="text" name="system.maxPress.value" value="{{system.maxPress.value}}" data-dtype="Number"/>
+      </div>
+
+      <!-- Feature: Open Doors -->
+      <div class="feature flexcol flex-group-center">
+        <label for="system.openDoors.value" class="resource-label">Open Doors</label>
+        <input type="text" name="system.openDoors.value" value="{{system.openDoors.value}}" data-dtype="Number"/>
+      </div>
+
+      <!-- Feature: Bend Bars -->
+      <div class="feature flexcol flex-group-center">
+        <label for="system.bendBars.value" class="resource-label">Bend Bars</label>
+        <input type="text" name="system.bendBars.value" value="{{system.bendBars.value}}" data-dtype="Number"/>
 
             </div>
+            </div>
+            {{/if}}
+          </div>
+          {{/each}}
+        </div>
 
-        <aside class="sidebar">
+        
+
+
           <div class="saving-throws flexcol">
             <h2>Saving Throws</h2>
             <div class="saving-throw flexrow flex-group-center">
@@ -261,7 +210,6 @@
           <input type="text" name="system.savingThrows.spellResistance.modifier" value="{{system.savingThrows.spellResistance.modifier}}" data-dtype="Number" placeholder="Modifier"/>
           </div>
           </div>
-        </aside>
       </section>
 
     {{!-- Biography Tab --}}
