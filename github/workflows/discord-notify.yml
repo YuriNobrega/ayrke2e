@@ -1,0 +1,80 @@
+name: Arcane Git Notifications
+
+on:
+  push:
+    branches: [ main ] # Ajuste para suas branches principais
+  pull_request:
+    types: [opened, closed, merged]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification for push
+        if: github.event_name == 'push'
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "username": "Arcane Watcher",
+                 "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
+                 "embeds": [{
+                   "title": "🔮 Conhecimento arcano atualizado!",
+                   "description": "**'${{ github.actor }}'** descobriu uma magia nova em seu repositório!",
+                   "color": 5814783,
+                   "fields": [
+                     {
+                       "name": "📜 Spell Casting: ",
+                       "value": "'${{ github.event.head_commit.message }}'",
+                       "inline": false
+                     },
+                     {
+                       "name": "🌟 Branch",
+                       "value": "'${{ github.ref_name }}'",
+                       "inline": true
+                     },
+                     {
+                       "name": "📚 Repositório",
+                       "value": "'${{ github.repository }}'",
+                       "inline": true
+                     }
+                   ],
+                   "url": "'${{ github.event.head_commit.url }}'",
+                   "timestamp": "'${{ github.event.head_commit.timestamp }}'"
+                 }]
+               }' \
+               ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Send Discord notification for PR
+        if: github.event_name == 'pull_request'
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "username": "Arcane Watcher",
+                 "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
+                 "embeds": [{
+                   "title": "🧙‍♂️ Arcane Ritual '${{ github.event.action }}'",
+                   "description": "**'${{ github.actor }}'** has '${{ github.event.action }}' a mystical merge request",
+                   "color": 3447003,
+                   "fields": [
+                     {
+                       "name": "📋 Ritual Name",
+                       "value": "'${{ github.event.pull_request.title }}'",
+                       "inline": false
+                     },
+                     {
+                       "name": "🌿 From Branch",
+                       "value": "'${{ github.event.pull_request.head.ref }}'",
+                       "inline": true
+                     },
+                     {
+                       "name": "🏰 To Branch",
+                       "value": "'${{ github.event.pull_request.base.ref }}'",
+                       "inline": true
+                     }
+                   ],
+                   "url": "'${{ github.event.pull_request.html_url }}'"
+                 }]
+               }' \
+               ${{ secrets.DISCORD_WEBHOOK }}
