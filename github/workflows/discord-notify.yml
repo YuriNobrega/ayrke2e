@@ -2,7 +2,7 @@ name: Arcane Git Notifications
 
 on:
   push:
-    branches: [ main ] # Ajuste para suas branches principais
+    branches: [ main, master ]
   pull_request:
     types: [opened, closed, merged]
 
@@ -12,69 +12,77 @@ jobs:
     steps:
       - name: Send Discord notification for push
         if: github.event_name == 'push'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          AVATAR_URL: "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833"
         run: |
+          COMMIT_MESSAGE=$(echo "${{ github.event.head_commit.message }}" | jq -Rsa .)
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{
-                 "username": "Arcane Watcher",
-                 "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
-                 "embeds": [{
-                   "title": "🔮 Conhecimento arcano atualizado!",
-                   "description": "**'${{ github.actor }}'** descobriu uma magia nova em seu repositório!",
-                   "color": 5814783,
-                   "fields": [
+               -d "{
+                 \"username\": \"Arcane Watcher\",
+                 \"avatar_url\": \"${AVATAR_URL}\",
+                 \"embeds\": [{
+                   \"title\": \"🔮 Arcane Knowledge Updated\",
+                   \"description\": \"${{ github.actor }} has channeled new wisdom into the repository\",
+                   \"color\": 5814783,
+                   \"fields\": [
                      {
-                       "name": "📜 Spell Casting: ",
-                       "value": "'${{ github.event.head_commit.message }}'",
-                       "inline": false
+                       \"name\": \"📜 Spell Cast (Commit)\",
+                       \"value\": ${COMMIT_MESSAGE},
+                       \"inline\": false
                      },
                      {
-                       "name": "🌟 Branch",
-                       "value": "'${{ github.ref_name }}'",
-                       "inline": true
+                       \"name\": \"🌟 Branch\",
+                       \"value\": \"${{ github.ref_name }}\",
+                       \"inline\": true
                      },
                      {
-                       "name": "📚 Repositório",
-                       "value": "'${{ github.repository }}'",
-                       "inline": true
+                       \"name\": \"📚 Repository\",
+                       \"value\": \"${{ github.repository }}\",
+                       \"inline\": true
                      }
                    ],
-                   "url": "'${{ github.event.head_commit.url }}'",
-                   "timestamp": "'${{ github.event.head_commit.timestamp }}'"
+                   \"url\": \"${{ github.event.head_commit.url }}\",
+                   \"timestamp\": \"${{ github.event.head_commit.timestamp }}\"
                  }]
-               }' \
-               ${{ secrets.DISCORD_WEBHOOK }}
+               }" \
+               $DISCORD_WEBHOOK
 
       - name: Send Discord notification for PR
         if: github.event_name == 'pull_request'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          AVATAR_URL: "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833"
         run: |
+          PR_TITLE=$(echo "${{ github.event.pull_request.title }}" | jq -Rsa .)
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{
-                 "username": "Arcane Watcher",
-                 "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
-                 "embeds": [{
-                   "title": "🧙‍♂️ Arcane Ritual '${{ github.event.action }}'",
-                   "description": "**'${{ github.actor }}'** has '${{ github.event.action }}' a mystical merge request",
-                   "color": 3447003,
-                   "fields": [
+               -d "{
+                 \"username\": \"Arcane Watcher\",
+                 \"avatar_url\": \"${AVATAR_URL}\",
+                 \"embeds\": [{
+                   \"title\": \"🧙‍♂️ Arcane Ritual ${{ github.event.action }}\",
+                   \"description\": \"${{ github.actor }} has ${{ github.event.action }} a mystical merge request\",
+                   \"color\": 3447003,
+                   \"fields\": [
                      {
-                       "name": "📋 Ritual Name",
-                       "value": "'${{ github.event.pull_request.title }}'",
-                       "inline": false
+                       \"name\": \"📋 Ritual Name\",
+                       \"value\": ${PR_TITLE},
+                       \"inline\": false
                      },
                      {
-                       "name": "🌿 From Branch",
-                       "value": "'${{ github.event.pull_request.head.ref }}'",
-                       "inline": true
+                       \"name\": \"🌿 From Branch\",
+                       \"value\": \"${{ github.event.pull_request.head.ref }}\",
+                       \"inline\": true
                      },
                      {
-                       "name": "🏰 To Branch",
-                       "value": "'${{ github.event.pull_request.base.ref }}'",
-                       "inline": true
+                       \"name\": \"🏰 To Branch\",
+                       \"value\": \"${{ github.event.pull_request.base.ref }}\",
+                       \"inline\": true
                      }
                    ],
-                   "url": "'${{ github.event.pull_request.html_url }}'"
+                   \"url\": \"${{ github.event.pull_request.html_url }}\"
                  }]
-               }' \
-               ${{ secrets.DISCORD_WEBHOOK }}
+               }" \
+               $DISCORD_WEBHOOK
