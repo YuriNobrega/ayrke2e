@@ -13,12 +13,12 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           COMMIT_MSG="${{ github.event.head_commit.message }}"
-          REPO_URL="https://github.com/YuriNobrega/ayrke2e/${{ github.repository }}"
+          REPO_URL="https://github.com/${{ github.repository }}"
           cat > payload.json <<EOF
           {
             "username": "Arcane Watcher",
             "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
-            "content": "**New arcane wisdom has been uncovered!**\n\n📝 *Commit message:*\n\`\`\`\n$COMMIT_MSG\n\`\`\`\n🔗 [View repository]($REPO_URL)"
+            "content": "**New arcane wisdom has been uncovered!**\n\n📝 *Runes descriptions:*\n\`\`\`\n$COMMIT_MSG\n\`\`\`\n🔗 [View repository]($REPO_URL)"
           }
           EOF
           cat payload.json
