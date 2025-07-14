@@ -14,9 +14,9 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{
-                 "username": "Arcane Watcher",
-                 "avatar_url": "https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
-                 "content": "A new arcane commit has been made by ${{ github.actor }}!"
-               }' \
+               -d "{
+                 \"username\": \"Arcane Watcher\",
+                 \"avatar_url\": \"https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
+                 \"content\": \"New arcane commit detected! The repository has been updated.\"
+               }" \
                $DISCORD_WEBHOOK
