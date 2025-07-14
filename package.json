@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "description": "CSS compiler for the Ayrke2e system",
   "scripts": {
-    "build": "sass src/scss/ayrke2e.scss css/ayrke2e.css --style=expanded --no-source-map",
-    "watch": "sass src/scss/ayrke2e.scss css/ayrke2e.css --style=expanded --source-map --watch"
+    "build": "sass src/scss/ayrke2e.scss css/ayrke2e.less --style=expanded --no-source-map",
+    "watch": "sass src/scss/ayrke2e.scss css/ayrke2e.less --style=expanded --source-map --watch"
   },
   "browserslist": [
     "last 3 versions"
@@ -13,6 +13,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "less": "^4.3.0",
     "sass": "^1.53.0"
   }
 }

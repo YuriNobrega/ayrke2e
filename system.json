@@ -30,7 +30,7 @@
     "verified": "11.315"
   },
   "esmodules": ["module/ayrke2e.mjs"],
-  "styles": ["css/ayrke2e.css"],
+  "styles": ["css/ayrke2e.less"],
   "languages": [
     {
       "lang": "en",

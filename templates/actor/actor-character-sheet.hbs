@@ -86,7 +86,7 @@
           {{#each system.abilities as |ability key|}}
             <div class="ability flexcol flex-group-center">
               <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{localize (lookup @root.config.abilities key)}}">{{localize (lookup @root.config.abilities key)}}</label>
-              <input type="text" class="input-shield" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
+              <input type="text" name="system.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number" />
               <!-- Loop que agrupa as features as respectivas habilidades -->
               {{#if (eq key "str")}}
                 <!--  Hit Adjustment -->
