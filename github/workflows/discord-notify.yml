@@ -8,6 +8,13 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug webhook
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          echo "Webhook length: ${#DISCORD_WEBHOOK}"
+          echo "Webhook starts with: ${DISCORD_WEBHOOK:0:30}..."
+          
       - name: Send simple Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -17,6 +24,6 @@ jobs:
                -d "{
                  \"username\": \"Arcane Watcher\",
                  \"avatar_url\": \"https://static.wikia.nocookie.net/mariokart/images/d/d0/349990-kamek.jpg/revision/latest?cb=20131007005833",
-                 \"content\": \"New arcane commit detected! The repository has been updated.\"
+                 \"content\": \"New arcane commit detected!\"
                }" \
                $DISCORD_WEBHOOK
